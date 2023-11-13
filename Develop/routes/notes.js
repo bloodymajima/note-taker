@@ -6,14 +6,33 @@ const {v4 : uuidv4} = require("uuid");
 
 const router = express.Router();
 
-const notesPath = "..Develop/db/db.json" 
+const notesPath = "../Develop/db/db.json" 
 
 // Routes for notes
 
+// router.get('/api/notes', (req, res) => {
+//     fs.readFile(notesPath, 'utf8', (err, data) => {
+//         let notes = JSON.parse(data) || [];
+//         res.json(notes);
+//     });
+// });
+
 router.get('/api/notes', (req, res) => {
     fs.readFile(notesPath, 'utf8', (err, data) => {
-        const notes = JSON.parse(data);
-        res.json(notes);
+        if (err) {
+            console.error('Error reading file:', err);
+            // Send an appropriate error response to the client
+            return res.status(500).json({ error: 'Internal Server Error' });
+        }
+
+        try {
+            let notes = JSON.parse(data) || [];
+            res.json(notes);
+        } catch (parseError) {
+            console.error('Error parsing JSON:', parseError);
+            // Send an appropriate error response to the client
+            res.status(400).json({ error: 'Invalid JSON Format' });
+        }
     });
 });
 
