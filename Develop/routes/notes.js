@@ -52,12 +52,12 @@ router.post('/api/notes', (req, res) => {
     });
 });
 
-router.delete('/api/notes/:id', (req, res) => {
-    const noteId = req.params.id;
-    notesDB = notesDB.filter((notes) => noteId.id !== noteID);
-    fs.writeFileSync(path.join(__dirname, notes_path), JSON.stringify(notesDB));
-    res.JSON(notesDB);
-});
+// router.delete('/api/notes/:id', (req, res) => {
+//     const noteId = req.params.id;
+//     notesDB = notesDB.filter((notes) => noteId.id !== noteID);
+//     fs.writeFileSync(path.join(__dirname, notes_path), JSON.stringify(notesDB));
+//     res.JSON(notesDB);
+// });
 
 // Routes for HTML
 
