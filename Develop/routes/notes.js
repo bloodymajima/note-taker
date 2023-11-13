@@ -1,3 +1,4 @@
+// Imports modules
 const express = require("express");
 const path = require("path");
 const fs = require("fs");
@@ -6,6 +7,8 @@ const {v4 : uuidv4} = require("uuid");
 const router = express.Router();
 
 const notesPath = "..Develop/db/db.json" 
+
+// Routes for notes
 
 router.get('/api/notes', (req, res) => {
     fs.readFile(notesPath, 'utf8', (err, data) => {
@@ -36,5 +39,14 @@ router.delete('/api/notes/:id', (req, res) => {
     fs.writeFileSync(path.join(__dirname, notes_path), JSON.stringify(notesDB));
     res.JSON(notesDB);
 });
+
+// Routes for HTML
+
+router.get("/notes", (req, res) => {
+    res.sendFile(path.join(__dirname, '../public/notes.html'))
+})
+router.get("*", (req, res) => {
+    res.sendFile(path.join(__dirname, '../public/index.html'))
+})
 
 module.exports = router;
